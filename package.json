@@ -1,0 +1,19 @@
+{
+  "name": "clearup",
+  "version": "1.0.0",
+  "description": "iPhotoのオリジナル画像抽出/整理をおこないます。",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jasmine-node ."
+  },
+  "keywords": [
+    "iphoto",
+    "original",
+    "filter"
+  ],
+  "author": "Takafumi Sekine",
+  "license": "MIT"
+}
