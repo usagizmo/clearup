@@ -10,5 +10,6 @@ $ cd clearup
 
 ## 使い方
 ```
+$ npm install
 $ node {command}
 ```
