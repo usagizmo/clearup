@@ -12,9 +12,16 @@ glob(config.imageDir + '/**/*', function(err, files) {
         name = info.name,
         datetime;
 
-    if (!(m = name.match(/^\d{4}-\d{2}-\d{2} \d{2}[\.]\d{2}[\.]\d{2}$/))) return;
+    if (m = name.match(/^\d{4}-\d{2}-\d{2} \d{2}[\.]\d{2}[\.]\d{2}/)) {
+      datetime = moment(m[0], 'YYYY-MM-DD HH.mm.ss').toDate();
+      fs.utimesSync(file, datetime, datetime);
+      return;
+    }
 
-    datetime = moment(m[0], 'YYYY-MM-DD HH.mm.ss').toDate();
-    fs.utimesSync(file, datetime, datetime);
+    if (m = name.match(/^\d{6}_\d{6}/)) {
+      datetime = moment(m[0], 'YYMMDD_HHmmss').toDate();
+      fs.utimesSync(file, datetime, datetime);
+      return;
+    }
   })
 });
