@@ -16,7 +16,8 @@ glob(config.imageDir + '/**/*', function(err, files) {
     try {
       var dimensions = sizeOf(file);
 
-      if ((dimensions.width === 360 && dimensions.height === 270) ||
+      if ((basename.indexOf('thumb_') === 0) ||
+          (dimensions.width === 360 && dimensions.height === 270) ||
           (dimensions.width === 270 && dimensions.height === 360)) {
 
         var topath = path.join(config.tempDir, basename);
