@@ -1,9 +1,9 @@
-var settings = require('./settings.js'),
+var config = require('./config.js'),
     fs = require('fs-extra'),
     glob = require('glob'),
     path = require('path');
 
-glob(settings.masterDir + '**/*', function(err, files) {
+glob(config.masterDir + '/**/*', function(err, files) {
   files.forEach(function(file) {
     var filestat = fs.statSync(file);
     if (!filestat.isFile()) return;
