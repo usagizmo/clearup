@@ -11,19 +11,19 @@ glob(config.masterDir + '/**/*', function(err, files) {
         basename = info.base,
         name = info.name,
         extname = info.ext,
-        toname = settings.imageDir + basename,
+        topath = path.join(config.imageDir, basename),
         birthtime = filestat.birthtime
         m = [], cnt = 0;
 
-    while (fs.existsSync(toname)) {
-      if (m = toname.match(/\((\d+)\)\..{3}$/)) {
+    while (fs.existsSync(topath)) {
+      if (m = topath.match(/\((\d+)\)\..{3}$/)) {
         cnt = +m[1] + 1;
       } else {
         cnt = 1;
       }
-      toname = settings.imageDir + name +' ('+cnt+')' + extname;
+      topath = path.join(config.imageDir, name +' ('+cnt+')' + extname);
     }
-    fs.copySync(file, toname);
-    fs.utimesSync(toname, birthtime, birthtime);
+    fs.copySync(file, topath);
+    fs.utimesSync(topath, birthtime, birthtime);
   })
 });
