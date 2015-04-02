@@ -4,7 +4,7 @@ var config = require('./config.js'),
     path = require('path');
 
 glob(config.masterDir + '/**/*', function(err, files) {
-  files.forEach(function(file) {
+  files.forEach(function(file, i) {
     var filestat = fs.statSync(file);
     if (!filestat.isFile()) return;
     var info = path.parse(file),
@@ -12,7 +12,7 @@ glob(config.masterDir + '/**/*', function(err, files) {
         name = info.name,
         extname = info.ext,
         topath = path.join(config.imageDir, basename),
-        birthtime = filestat.birthtime
+        birthtime = filestat.birthtime,
         m = [], cnt = 0;
 
     while (fs.existsSync(topath)) {
@@ -25,5 +25,6 @@ glob(config.masterDir + '/**/*', function(err, files) {
     }
     fs.copySync(file, topath);
     fs.utimesSync(topath, birthtime, birthtime);
-  })
+    console.log(i + ': ' + file);
+  });
 });

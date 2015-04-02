@@ -5,7 +5,7 @@ var config = require('./config.js'),
     moment = require('moment');
 
 glob(config.imageDir + '/**/*', function(err, files) {
-  files.forEach(function(file) {
+  files.forEach(function(file, i) {
     var filestat = fs.statSync(file);
     if (!filestat.isFile()) return;
     var info = path.parse(file),
@@ -15,13 +15,15 @@ glob(config.imageDir + '/**/*', function(err, files) {
     if (m = name.match(/^\d{4}-\d{2}-\d{2} \d{2}[\.]\d{2}[\.]\d{2}/)) {
       datetime = moment(m[0], 'YYYY-MM-DD HH.mm.ss').toDate();
       fs.utimesSync(file, datetime, datetime);
+      console.log(i + ': ' + file);
       return;
     }
 
     if (m = name.match(/^\d{6}_\d{6}/)) {
       datetime = moment(m[0], 'YYMMDD_HHmmss').toDate();
       fs.utimesSync(file, datetime, datetime);
+      console.log(i + ': ' + file);
       return;
     }
-  })
+  });
 });
